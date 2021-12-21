@@ -80,6 +80,7 @@ def read_sheet(xls, name):
     df = df.replace("CLO", "0")
     df = df.convert_dtypes()
     cols_obj = list(df.select_dtypes(include=[object]).columns)
+    cols_obj.remove("Quarter")
     df[cols_obj] = df[cols_obj].apply(pd.to_numeric)
     # TODO: Should we really fillna here?
     df = df.fillna(0)

@@ -72,10 +72,10 @@ The overview is created with the following procedure:
 1. Generate degree and concentration requirements that each `Course` satisfies
 1. Merge requirements into schedule by `Course`
 1. Read and clean the price history
-1. For each `Course`-`Quarter`-`Program` combination, calculate median price history
-1. Merge price history into schedule by `Course`-`Quarter`-`Program`
+1. Select most recent `Course`-`Program`-`Last Name` combination
+1. Merge price history into schedule
 1. Read and clean the course evaluations
-1. For each `Course`-`Last Name` combination, calculate median course evaluations
+1. Select most recent `Course`-`Program`-`Last Name` combination
 1. Merge course evaluations by `Course`-`Last Name`
 1. Save the file to `output/booth_course_planner.csv`
 
