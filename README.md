@@ -28,14 +28,14 @@ Download the data files from the intranet
   * Select *Search Course Schedule (spreadsheet)*
   * Select *Download to Excel*
   * Save as `data/BoothSchedule.xlsx`
-* Requirements
+* Requirement
   * Degree Requirements
     * Click [link](https://intranet.chicagobooth.edu/secure/evewkd/academics/cdr/course-related-information/degree-requirements)
-    * Manually clean each into `Area: Course, Course`
+    * Manually clean each area of study into `Area: Course, Course, ..., Course` where a new line starts with a new `Area`
     * Save as `data/degree_requirements.txt`
   * Concentration requirements
     * Click [link](https://intranet.chicagobooth.edu/secure/evewkd/academics/cdr/course-related-information/concentration-requirements)
-    * Manually clean each into `Area: Course, Course`
+    * Manually clean each area of study into `Area: Course, Course, ..., Course` where a new line starts with a new `Area`
     * Save as `data/concentration_requirements.txt`
 * Price History
   * Click [link](https://ibid.chicagobooth.edu/registrar-student/Home.tap)
@@ -78,6 +78,21 @@ The overview is created with the following procedure:
 1. For each `Course`-`Last Name` combination, calculate median course evaluations
 1. Merge course evaluations by `Course`-`Last Name`
 1. Save the file to `output/booth_course_planner.csv`
+
+The exported file can then be filtered to facilitate your course. For example, you can select the following parameters to subset the list of courses:
+
+* a quarter
+* your program
+* a requirement to fulfill
+* that you would like to pay 0 points in the first round of bidding
+
+From this subset of courses, you can then view the following information:
+
+* instructor
+* date and time
+* pre-requisites
+* syllabus
+* course evaluations
 
 ## Contributing
 
