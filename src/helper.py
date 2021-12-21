@@ -34,14 +34,14 @@ def qtr_to_quarter(qtr):
     """
 
     qtr_dict = {
-        "AUT": "1-Autumn",
-        "Autumn": "1-Autumn",
-        "WIN": "2-Winter",
-        "Winter": "2-Winter",
-        "SPR": "3-Spring",
-        "Spring": "3-Spring",
-        "SUM": "4-Summer",
-        "Summer": "4-Summer",
+        "AUT": (1, "Autumn"),
+        "Autumn": (1, "Autumn"),
+        "WIN": (2, "Winter"),
+        "Winter": (2, "Winter"),
+        "SPR": (3, "Spring"),
+        "Spring": (3, "Spring"),
+        "SUM": (4, "Summer"),
+        "Summer": (4, "Summer"),
     }
     return qtr_dict[qtr]
 
