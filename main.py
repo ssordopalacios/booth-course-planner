@@ -25,13 +25,13 @@ def main():
 
     # Read the price history, summarize, and merge
     prices = price_history.main()
-    prices_group_vars = ["Course", "Quarter", "Program"]
+    prices_group_vars = ["Course", "Program", "Last Name"]
     prices = helper.summarize(prices, prices_group_vars)
     df = df.merge(prices, on=prices_group_vars, how="left")
 
     # Read the course evaluations, summarize, merge
     evals = course_evals.main()
-    evals_group_vars = ["Course", "Last Name"]
+    evals_group_vars = ["Course", "Program", "Last Name"]
     evals = helper.summarize(evals, evals_group_vars)
     df = df.merge(evals, on=evals_group_vars, how="left")
 
