@@ -55,6 +55,14 @@ def qtr_to_quarter(qtr):
 
 
 def yq_to_year_quarter(yq):
+    """Convert yq int to year and quarter tuple
+
+    Args:
+        yq (int): Year + QuarterNum/4
+
+    Returns:
+        tuple: year, quarter
+    """
 
     year = int(yq // 1)
     quarter = qtr_to_quarter(int(4 * (yq % 1)))
