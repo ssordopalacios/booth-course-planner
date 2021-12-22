@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class AreaOfStudy(ABC):
-    def __init__(self, name, courses):
+    def __init__(self, name, offerings):
         self.name = name
-        self.courses = {k: False for k in courses}
+        self.offerings = {k: False for k in offerings}
 
     def __str__(self):
         if self.completed:
@@ -18,10 +18,37 @@ class AreaOfStudy(ABC):
     def completed():
         pass
 
+    def satisfies(self, course):
+        if course in self.offerings:
+            return True
+        else:
+            return False
 
-class FinancialAccounting(AreaOfStudy):
+    def take(self, course):
+        if course in self.offerings:
+            if self.offerings[course] is True:
+                raise ValueError(
+                    f"Cannot retake {course} for {self.name} requirement"
+                )
+            else:
+                self.offerings[course] = True
+                return True
+        else:
+            return False
+
+
+class DegreeRequirement(AreaOfStudy, ABC):
+    def __init__(self, name, offerings):
+        super().__init__(name, offerings)
+
+    @property
+    def completed(self):
+        return any(self.offerings.values())
+
+
+class FinancialAccounting(DegreeRequirement):
     def __init__(self):
-        courses = [
+        offerings = [
             30000,
             30116,
             30117,
@@ -29,16 +56,24 @@ class FinancialAccounting(AreaOfStudy):
             30130,
             30131,
         ]
-        super().__init__("Financial Accounting", courses)
+        super().__init__("Financial Accounting", offerings)
 
-    @property
-    def completed(self):
-        return any(self.courses.values())
+
+class Microeconomics(DegreeRequirement):
+    def __init__(self):
+        offerings = [
+            33001,
+            33002,
+            33101,
+            30100,
+            30200,
+        ]
+        super().__init__("Microeconomics", offerings)
 
 
 class InternationalBusiness(AreaOfStudy):
     def __init__(self):
-        courses = [
+        offerings = [
             30131,
             33402,
             33501,
@@ -50,23 +85,27 @@ class InternationalBusiness(AreaOfStudy):
             35213,
             35219,
         ]
-        super().__init__("Financial Accounting", courses)
+        super().__init__("International Business", offerings)
 
     @property
     def completed(self):
-        any([self.courses[33501], self.courses[33501]]) and (
-            sum(self.courses.values()) > 3
-        )
-
         # At least one must be 33501 or 33502.
+        return any([self.offerings[33501], self.offerings[33502]]) and (
+            sum(self.offerings.values()) >= 3
+        )
 
 
 if __name__ == "__main__":
 
     fa = FinancialAccounting()
-    print(fa.completed)
+    print(fa)
+    fa.take(30000)
     print(fa)
 
     ib = InternationalBusiness()
-    print(fa.completed)
-    print(fa)
+    ib.take(30131)
+    ib.take(33520)
+    ib.take(35213)
+    print(ib)
+    ib.take(33502)
+    print(ib)
