@@ -1,49 +1,72 @@
-import os
-from . import requirements
+from abc import ABC, abstractmethod
 
 
-class AreaOfStudy:
-    def __init__(self, name, n_required, offerings):
+class AreaOfStudy(ABC):
+    def __init__(self, name, courses):
         self.name = name
-        self.offerings = offerings
-        self.n_required = n_required
-        self._taken = []
-
-    @classmethod
-    def degree(cls, name):
-        fname = os.path.join("data", "degree_requirements.txt")
-        req_dict = requirements.read(fname)
-        if name not in req_dict:
-            raise KeyError(f"{name} is not a degree requirement")
-        else:
-            return cls(name, 1, req_dict[name])
+        self.courses = {k: False for k in courses}
 
     def __str__(self):
-        return f"{self.name}: {len(self)}/{self.n_required} completed"
+        if self.completed:
+            msg = "Complete"
+        else:
+            msg = "Incomplete"
+        return f"{self.name}: {msg}"
 
-    def __len__(self):
-        return len(self._taken)
+    @property
+    @abstractmethod
+    def completed():
+        pass
 
-    def __contains__(self, key):
-        return key in self._taken
+
+class FinancialAccounting(AreaOfStudy):
+    def __init__(self):
+        courses = [
+            30000,
+            30116,
+            30117,
+            30120,
+            30130,
+            30131,
+        ]
+        super().__init__("Financial Accounting", courses)
 
     @property
     def completed(self):
-        return len(self) == self.n_required
+        return any(self.courses.values())
 
-    def satisfies(self, cid):
-        if cid in self.offerings:
-            return True
-        else:
-            return False
 
-    def take(self, cid):
-        if cid in self:
-            raise ValueError(f"Cannot retake {cid} for {self.name} requirement")
-        if self.completed:
-            return False
-        if self.satisfies(cid):
-            self._taken.append(cid)
-            return True
-        else:
-            return False
+class InternationalBusiness(AreaOfStudy):
+    def __init__(self):
+        courses = [
+            30131,
+            33402,
+            33501,
+            33502,
+            33503,
+            33520,
+            33521,
+            35210,
+            35213,
+            35219,
+        ]
+        super().__init__("Financial Accounting", courses)
+
+    @property
+    def completed(self):
+        any([self.courses[33501], self.courses[33501]]) and (
+            sum(self.courses.values()) > 3
+        )
+
+        # At least one must be 33501 or 33502.
+
+
+if __name__ == "__main__":
+
+    fa = FinancialAccounting()
+    print(fa.completed)
+    print(fa)
+
+    ib = InternationalBusiness()
+    print(fa.completed)
+    print(fa)
