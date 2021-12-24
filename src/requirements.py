@@ -14,7 +14,6 @@ def read(fname):
     """
 
     # Load the file
-    print(f"Reading Requirements from {fname}")
     dictionary = {}
     with open(fname, "r") as f:
         # Each line contains Area: CourseNum, CourseNum
@@ -85,10 +84,12 @@ def main(courses):
 
     # Read the degree requirements
     fname_degree = os.path.join("data", "degree_requirements.txt")
+    print(f"Reading Requirements from {fname_degree}")
     dictionary = read(fname_degree)
 
     # Read the concentration requirements
     fname_conc = os.path.join("data", "concentration_requirements.txt")
+    print(f"Reading Requirements from {fname_conc}")
     dictionary.update(read(fname_conc))
 
     # Fill the courses as a dataframe
